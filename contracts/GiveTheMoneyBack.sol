@@ -5,6 +5,7 @@ contract GiveTheMoneyBack {
     address public owner; // creator of the contract
     address public receiver; // person who owes money
     address[] public backers; // people who back up the request
+    uint256 public nbBackers; // Number of persons who backed the requests.
     uint256 public amount; // amount of wei owed
     string public description; // why the money is owed
 
@@ -27,6 +28,7 @@ contract GiveTheMoneyBack {
         amount = etherAmount * 10 ** 18; // converts the ether into wei. 1 ether = 10^18 wei
         description = explanation;
         backers.push(owner); // add the creator of the contract as a backer
+        nbBackers = 1;
     }
 
     /**
@@ -44,6 +46,7 @@ contract GiveTheMoneyBack {
             }
         }
         backers.push(msg.sender);
+        nbBackers++;
         Backed(msg.sender);
         return true;
     }
